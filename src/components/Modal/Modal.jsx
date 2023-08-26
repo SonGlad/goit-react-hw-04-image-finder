@@ -1,62 +1,55 @@
-import { Component } from "react";
 import { createPortal } from "react-dom";
 import { ModalBackdropStyle } from "./Modal.styled";
 import {ReactComponent as CloseIcon} from "../../images/icons/close.svg";
+import { useEffect } from "react";
 import PropTypes from 'prop-types';
 
 
 
 const modalRoot = document.querySelector('#modal-root');
 
+export const Modal = ({articles, largeImageURL, onClose}) => {
 
-
-export class Modal extends Component {
-
-    componentDidMount(){
-        window.addEventListener('keydown', this.handleKeyDown);
+    useEffect(() =>{
+        const handleKeyDown = event => {
+            if(event.code === 'Escape'){
+                onClose();
+            }
+        } 
+       
+        window.addEventListener('keydown', handleKeyDown);
         document.body.style.overflow = 'hidden';
-    };
 
-    componentWillUnmount(){
-        window.removeEventListener('keydown', this.handleKeyDown);
-        document.body.style.overflow = 'auto';
-    };
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            document.body.style.overflow = "auto";
+        };
+    }, [onClose]);
 
-
-    handleKeyDown = event => {
-        if(event.code === 'Escape'){
-            this.props.onClose();
-        }
-    };
-    
-    handleBackdropClick = event => {
+        
+    const handleBackdropClick = event => {
         if(event.currentTarget === event.target){
-            this.props.onClose();
+            onClose();
         }
     };
 
-    handleCloseClick = () => {
-        this.props.onClose();
-    };
+
+    const currentImageTag = articles.find(item => item.largeImageURL === largeImageURL);
 
 
-    render(){
-        const { articles, largeImageURL } = this.props;
-        const currentImageTag = articles.find(item => item.largeImageURL === largeImageURL);
-
-        return createPortal(
-            <ModalBackdropStyle onClick={this.handleBackdropClick}>
-                <div className="modal">
-                    <button type="button" className="close-btn" onClick={this.handleCloseClick}>
-                        <CloseIcon className="close-icon" width="40" height="40"/>
-                    </button>
-                    <img src={largeImageURL} alt="{currentImageTag?.tags}" />
-                    <h2 className="modal-title">{currentImageTag?.tags}</h2>
-                </div>
-            </ModalBackdropStyle>,
-            modalRoot
-        )
-    };
+    
+    return createPortal(
+        <ModalBackdropStyle onClick={handleBackdropClick}>
+            <div className="modal">
+                <button type="button" className="close-btn" onClick={onClose}>
+                    <CloseIcon className="close-icon" width="40" height="40"/>
+                </button>
+                <img src={largeImageURL} alt="{currentImageTag?.tags}" />
+                <h2 className="modal-title">{currentImageTag?.tags}</h2>
+            </div>
+        </ModalBackdropStyle>,
+        modalRoot
+    )
 };
 
 

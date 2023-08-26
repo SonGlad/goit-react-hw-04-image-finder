@@ -14,7 +14,7 @@ export async function fetchArticles(searchQuery, page, perPage) {
         orientation: "horizontal",
         safesearch: true,
         page: page,
-        per_page: perPage,
+        per_page: 12,
     };
 
     const response = await axios.get(url, {params});

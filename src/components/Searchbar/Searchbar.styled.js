@@ -53,11 +53,8 @@ export const HeaderStyles = styled.header `
     }
 
     .button { 
-        display: inline-block;
-        display: inline; 
         zoom: 1; 
         margin-bottom: 0; 
-        font-size: 13px; 
         line-height: 18px; 
         color: #333333; 
         text-align: center;
@@ -81,14 +78,23 @@ export const HeaderStyles = styled.header `
         -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); 
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; 
         *margin-left: .3em; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        gap: 5px;
     }
 
     .button-large { 
-        font-size: 15px; 
         line-height: normal; 
         -webkit-border-radius: 5px; 
         -moz-border-radius: 5px; 
-        border-radius: 5px; 
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        gap: 5px; 
     }
 
     .button:hover { 
@@ -120,6 +126,11 @@ export const HeaderStyles = styled.header `
         border: 1px solid #3762bc; 
         text-shadow: 1px 1px 1px rgba(0,0,0,0.4); 
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        gap: 5px;
     }
 
     .button-primary:hover, .button-primary:active, .button-primary.active{ 
